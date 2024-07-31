@@ -11,19 +11,10 @@ const Home = () => {
     editIndex: null,
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      formData: { ...prevState.formData, [name]: value },
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (formData) => {
     if (state.isEditing) {
       const updatedData = state.data.map((item, index) =>
-        index === state.editIndex ? state.formData : item
+        index === state.editIndex ? formData : item
       );
       setState({
         ...state,
@@ -35,7 +26,7 @@ const Home = () => {
     } else {
       setState({
         ...state,
-        data: [...state.data, state.formData],
+        data: [...state.data, formData],
         formData: { name: '', age: '' },
       });
     }
@@ -63,7 +54,6 @@ const Home = () => {
       <h1>Form with Table</h1>
       <Form
         formData={state.formData}
-        handleInputChange={handleInputChange}
         handleSubmit={handleSubmit}
         isEditing={state.isEditing}
       />
@@ -77,4 +67,5 @@ const Home = () => {
 };
 
 export default Home;
+
 
